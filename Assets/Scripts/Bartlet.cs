@@ -17,21 +17,6 @@ public class Bartlet : MonoBehaviour
         
     }
 
-    int time=0;
-
-    void Response1()
-    {
-        Debug.Log("response 1");
-    }
-    void Response2()
-    {
-        Debug.Log("response 2");
-    }
-    void Response3()
-    {
-        Debug.Log("response 3");
-    }
-
     bool wasInitiated = false;
     void OnMouseDown()
     {

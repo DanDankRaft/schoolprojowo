@@ -55,7 +55,7 @@ public class TextBox : MonoBehaviour
             GameObject.Find("Choice Button 3").GetComponent<Button>().interactable = true;
         }
     }
-    public void DisableChoices(int count)
+    public void DisableChoices(int count) //TODO: change to not require count and automatically disable ALL choices!
     {
 
         if(count >= 1)
@@ -73,10 +73,9 @@ public class TextBox : MonoBehaviour
             GameObject.Find("Text Choice 3").GetComponent<TextMeshProUGUI>().enabled = false;
             GameObject.Find("Choice Button 3").GetComponent<Button>().interactable = false;
         }
-        numberOfUsedChoices = 0;
     }
     
-    int numberOfUsedChoices = 0;
+    [SerializeField] int numberOfUsedChoices = 0;
     public void SetResponses(GameObject sender, string response1, string event1){
         EnableChoices(1);
         GameObject target = GameObject.Find("Text Choice 1").gameObject;
@@ -117,6 +116,7 @@ public class TextBox : MonoBehaviour
         numberOfUsedChoices = 3;
     }
 
+    bool isWritingDialogue = false;
     public void DialogueWithTitle(string title, string text)
     {
         EnableDialogueBox();
@@ -129,16 +129,17 @@ public class TextBox : MonoBehaviour
         //todo: add a skip dialogue when another dialogue starts
         string titleText = "<color=\"yellow\">" + title + ": ";
         string bodyText = "<color=\"white\">";
+        yield return new WaitForFixedUpdate();
         foreach(char t in text)
         {
+        isWritingDialogue = true;
         bodyText += t;
         textMesh.SetText(titleText + bodyText);
         if(!isDialogueSkipped)
-            yield return new WaitForSecondsRealtime(1.0f/speed);
-        else
-            yield return new WaitForSecondsRealtime(0);
+            yield return new WaitForSecondsRealtime(1/speed);
         }
         EnableChoices(numberOfUsedChoices);
+        isWritingDialogue = false;
     }
     
     public void Dialogue(string text)
@@ -156,9 +157,7 @@ public class TextBox : MonoBehaviour
         sentText += t;
         textMesh.SetText(sentText);
         if(!isDialogueSkipped)
-            yield return new WaitForSecondsRealtime(1.0f/speed);
-        else
-            yield return new WaitForSecondsRealtime(0);
+            yield return new WaitForEndOfFrame();
         }
         EnableChoices(numberOfUsedChoices);
     }
@@ -166,7 +165,7 @@ public class TextBox : MonoBehaviour
     void Update()
     {
         //mechanism for skipping text typing animation
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && isWritingDialogue)
             isDialogueSkipped = true;
     }
 }
