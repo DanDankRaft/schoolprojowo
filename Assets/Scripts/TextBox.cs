@@ -35,18 +35,10 @@ public class TextBox : MonoBehaviour
 
     public float speed = 10;
     public bool isDialogueSkipped = false;
-    
-
-    /*public GameObject TextChoice1;
-    public GameObject ChoiceButton1;
-    public GameObject TextChoice2;
-    public GameObject ChoiceButton2;
-    public GameObject TextChoice3;
-    public GameObject ChoiceButton3;*/
 
     public void EnableChoices(int count)
     {
-
+        numberOfUsedChoices = count;
         if(count >= 1)
         {
             GameObject.Find("Text Choice 1").GetComponent<TextMeshProUGUI>().enabled = true;
@@ -146,6 +138,7 @@ public class TextBox : MonoBehaviour
         else
             yield return new WaitForSecondsRealtime(0);
         }
+        EnableChoices(numberOfUsedChoices);
     }
     
     public void Dialogue(string text)
@@ -167,12 +160,13 @@ public class TextBox : MonoBehaviour
         else
             yield return new WaitForSecondsRealtime(0);
         }
+        EnableChoices(numberOfUsedChoices);
     }
 
     void Update()
     {
         //mechanism for skipping text typing animation
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetMouseButtonDown(0))
             isDialogueSkipped = true;
     }
 }

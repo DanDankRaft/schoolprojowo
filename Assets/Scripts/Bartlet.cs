@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bartlet : MonoBehaviour
 {
+    TextBox leBox;
     // Start is called before the first frame update
     void Start()
     {
-        
+        leBox = FindObjectOfType<TextBox>();
     }
 
     // Update is called once per frame
@@ -31,17 +32,28 @@ public class Bartlet : MonoBehaviour
         Debug.Log("response 3");
     }
 
+    bool wasInitiated = false;
     void OnMouseDown()
     {
-        if(time==0)
+        if(!wasInitiated)
         {
-            TextBox leBox = FindObjectOfType<TextBox>();
-            FindObjectOfType<TextBox>().DialogueWithTitle("Bartlet", "you are a fool and an idiot!");
-            leBox.SetResponses(gameObject, "Response ONE", "Response1", "Response TWO", "Response2", "Response THREE", "Response3");
-            leBox.EnableChoices(3);
+        leBox.EnableDialogueBox();
+        leBox.SetResponses(gameObject, "busy with what?", "GiveQuest");
+        leBox.DialogueWithTitle("Professor Bartlet", "Hey i'm busy right now, can't talk.");
         }
-        else
-            FindObjectOfType<TextBox>().DialogueWithTitle("Bartlet", "why have thou pressed me a second time???");
-        time++;
+        wasInitiated = true;
+    }
+
+    bool wasQuestInitiated = false;
+    void GiveQuest()
+    {
+        leBox.SetResponses(gameObject, "okay..", "InitiateQuest");
+        leBox.DialogueWithTitle("Professor Bartlet", "I'm making an experiment potion. Actually, you can help. I need an aim apple, a page from the procedure book and a sampling spirit.");
+    }
+
+    void InitiateQuest()
+    {
+        wasQuestInitiated = true;
+        leBox.DisableDialogueBox();
     }
 }
