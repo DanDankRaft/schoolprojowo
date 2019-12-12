@@ -36,9 +36,16 @@ public class Bartlet : MonoBehaviour
         leBox.DialogueWithTitle("Professor Bartlet", "I'm making an experiment potion. Actually, you can help. I need an aim apple, a page from the procedure book and a sampling spirit.");
     }
 
+    public GameObject ItemsListGUI;
     void InitiateQuest()
     {
+        
         wasQuestInitiated = true;
         leBox.DisableDialogueBox();
+        ItemsListGUI.SetActive(true);
+        //make apple, book, ghost jar clickable
+            //add items to scene
+            //make them clickable
+            //make script for them
     }
 }
