@@ -15,21 +15,17 @@ public class TextBox : MonoBehaviour
 
     public void EnableDialogueBox()
     {
-        if(!GetComponent<TextMeshProUGUI>().isActiveAndEnabled)
-        {
-            GetComponent<TextMeshProUGUI>().enabled = true;
-            textMesh = GetComponent<TextMeshProUGUI>();
-        }
-        if(!GetComponentInParent<Image>().isActiveAndEnabled)
-            GetComponentInParent<Image>().enabled = true;
+        Debug.Log("enabling dialogue box");
+        GetComponent<TextMeshProUGUI>().enabled = true;
+        textMesh = GetComponent<TextMeshProUGUI>();
+        GetComponentInParent<Image>().enabled = true;
     }
 
     public void DisableDialogueBox()
     {
-        if(GetComponent<TextMeshProUGUI>().isActiveAndEnabled)
-            GetComponent<TextMeshProUGUI>().enabled = false;
-        if(GetComponentInParent<Image>().isActiveAndEnabled)
-            GetComponentInParent<Image>().enabled = false;
+        Debug.Log("disabling dialogue box");
+        GetComponent<TextMeshProUGUI>().enabled = false;
+        GetComponentInParent<Image>().enabled = false;
     
     }
 
@@ -116,7 +112,7 @@ public class TextBox : MonoBehaviour
         numberOfUsedChoices = 3;
     }
 
-    bool isWritingDialogue = false;
+    public bool isWritingDialogue = false;
     public void DialogueWithTitle(string title, string text)
     {
         EnableDialogueBox();
@@ -129,6 +125,7 @@ public class TextBox : MonoBehaviour
         //todo: add a skip dialogue when another dialogue starts
         string titleText = "<color=\"yellow\">" + title + ": ";
         string bodyText = "<color=\"white\">";
+        textMesh.SetText(titleText);
         yield return new WaitForFixedUpdate();
         foreach(char t in text)
         {
@@ -152,14 +149,18 @@ public class TextBox : MonoBehaviour
     {
         isDialogueSkipped = false;
         string sentText = "";
+        textMesh.SetText("");
+        yield return new WaitForFixedUpdate();
         foreach(char t in text)
         {
+        isWritingDialogue = true;
         sentText += t;
         textMesh.SetText(sentText);
         if(!isDialogueSkipped)
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSecondsRealtime(1/speed);
         }
         EnableChoices(numberOfUsedChoices);
+        isWritingDialogue = false;
     }
 
     void Update()

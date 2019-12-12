@@ -13,23 +13,38 @@ public class TodoList : MonoBehaviour
     {
         string name = "Aim Apple Text";
         if(!appleAcquired)
-            transform.Find(name).GetComponent<TextMeshProUGUI>().text = "<s>" + transform.Find(name).GetComponent<TextMeshProUGUI>().text + "<\\s>";
+            transform.Find(name).GetComponent<TextMeshProUGUI>().text = "";
         appleAcquired = true;
+        if(appleAcquired && bookAcquired && spiritAcquired)
+            FinalConversation();
     }
 
     public void MarkOffBook()
     {
         string name = "Book Text";
         if(!appleAcquired)
-            transform.Find(name).GetComponent<TextMeshProUGUI>().text = "<s>" + transform.Find(name).GetComponent<TextMeshProUGUI>().text + "<\\s>";
+            transform.Find(name).GetComponent<TextMeshProUGUI>().text = "";
         bookAcquired = true;
+        if(appleAcquired && bookAcquired && spiritAcquired)
+            FinalConversation();
     }
 
     public void MarkOffSpirit()
     {
-        string name = "Spirit Text";
+        string name = "Sampling Spirit Text";
         if(!appleAcquired)
-            transform.Find(name).GetComponent<TextMeshProUGUI>().text = "<s>" + transform.Find(name).GetComponent<TextMeshProUGUI>().text + "<\\s>";
+            transform.Find(name).GetComponent<TextMeshProUGUI>().text = "";
         spiritAcquired = true;
+        if(appleAcquired && bookAcquired && spiritAcquired)
+            FinalConversation();
     }
+
+    void FinalConversation()
+    {
+        Debug.Log("All Finished!!");
+        FindObjectOfType<Bartlet>().FinalConversation();
+        gameObject.SetActive(false);
+
+    }
+
 }
