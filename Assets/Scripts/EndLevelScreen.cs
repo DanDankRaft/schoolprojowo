@@ -16,9 +16,18 @@ public class EndLevelScreen : MonoBehaviour
         }
 
         if(mode == 1)
+        {
             if(Input.GetKey(KeyCode.Space))
             {
                 FindObjectOfType<HofstedeIntro>().Intro1();
             }
+        }
+        if(mode == 2)
+        {
+            if(Input.GetKey(KeyCode.Space))
+            {
+                FindObjectOfType<Hofstede>().FinalBoss1();
+            }
+        }
     }
 }

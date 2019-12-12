@@ -13,7 +13,7 @@ public class Squire : MonoBehaviour
         {
             wasInitiated = true;
             tBox.EnableDialogueBox();
-            tBox.SetResponses(gameObject, "are lecturing to plants again?", "Conversation1");
+            tBox.SetResponses(gameObject, "Are you lecturing to plants again?", "Conversation1");
             tBox.DialogueWithTitle("Professor Squire", "Ah, you came just in time! We are about to start another autopsy");
         }
     }
