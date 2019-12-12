@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EndLevelScreen : MonoBehaviour
 {
-    int mode = 0;
+    public int mode = 0;
 
     void Update()
     {
@@ -14,5 +14,11 @@ public class EndLevelScreen : MonoBehaviour
             if(Input.GetKey(KeyCode.Space))
                 SceneManager.LoadScene("Lecture Hall");
         }
+
+        if(mode == 1)
+            if(Input.GetKey(KeyCode.Space))
+            {
+                FindObjectOfType<HofstedeIntro>().Intro1();
+            }
     }
 }
