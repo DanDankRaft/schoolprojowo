@@ -37,7 +37,7 @@ public class HofstedeIntro : MonoBehaviour
     }
     public void Intro5()
     {
-        leBox.SetResponses(gameObject, "Then we must leave right now.", "Intro6");
+        leBox.SetResponses(gameObject, "Let's go.", "Intro6");
         leBox.DialogueWithTitle("Professor Hofstede", "OH NO INDEED. I WILL NEED YOUR HELP TO DEFEAT THEM. WE HAVE TO LEAVE AT HASTE");
     }
     public void Intro6()
@@ -49,7 +49,8 @@ public class HofstedeIntro : MonoBehaviour
     public void Intro7()
     {
         GetComponent<Animator>().Play("HofstedeFlashing");
-        player.GetComponent<Animator>().Play("PlayerFlashing");
+        player.GetComponent<walking>().enabled = false;
+        player.GetComponent<Animator>().Play("Flashing");
         leBox.SetResponses(gameObject, "<i>[The two of you leave for the magical realm]", "Intro8");
         leBox.DialogueWithTitle("Professor Hofstede", "NO.");
     }

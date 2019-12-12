@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lecture Hall.unity
     guid: 98a775d64f5e1cf438aa8f7c0ae81823
+  - enabled: 1
+    path: Assets/Scenes/Texas.unity
+    guid: b64de85ccb18c524794b0aa1701c957f
   m_configObjects: {}
